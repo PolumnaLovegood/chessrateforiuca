@@ -16,12 +16,27 @@ class GroupSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class GamesSerializer(serializers.ModelSerializer):
+    whitePlayer = serializers.StringRelatedField(many=False)
+    blackPlayer = serializers.StringRelatedField(many=False)
+
     class Meta:
         model = Games
-        fields = ("whitePlayer", "blackPlayer", "winColor", "dateOfGame", "moves")
+        fields = ("blackPlayer", "whitePlayer", "winColor", "dateOfGame", "moves")
 
 
 class ProfileSerializer(serializers.ModelSerializer):
+    user = serializers.StringRelatedField(many=False)
+    url = serializers.HyperlinkedIdentityField(view_name='profiles_games', read_only=True)
+
     class Meta:
         model = Profile
-        fields = ('user', 'nickname', 'rate')
+        fields = ('user', 'rate', 'url')
+
+
+class ProfileGameSerializer(serializers.ModelSerializer):
+    user = serializers.StringRelatedField(many=False)
+    games = GamesSerializer(many=True)
+
+    class Meta:
+        model = Profile
+        fields = ('user', 'rate', 'games')

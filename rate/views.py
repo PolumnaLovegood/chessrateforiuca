@@ -2,7 +2,7 @@ from django.contrib.auth.models import User, Group
 from rest_framework import viewsets
 from rest_framework import permissions
 from rest_framework.views import APIView
-from .serializers import UserSerializer, GroupSerializer, GamesSerializer, ProfileSerializer
+from .serializers import UserSerializer, GroupSerializer, GamesSerializer, ProfileSerializer, ProfileGameSerializer
 from .models import Games, Profile
 from rest_framework.response import Response
 
@@ -28,6 +28,15 @@ class GroupViewSet(viewsets.ModelViewSet):
 class GamesViewSet(viewsets.ModelViewSet):
     queryset = Games.objects.all()
     serializer_class = GamesSerializer
+
+
+class ProfileGameViewSet(viewsets.ModelViewSet):
+    serializer_class = ProfileGameSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        profiles = Profile.objects.filter(user=self.request.user)
+        return profiles
 
 
 class ProfileViewSet(viewsets.ModelViewSet):

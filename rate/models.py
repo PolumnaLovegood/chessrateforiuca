@@ -26,7 +26,7 @@ class Profile(models.Model):
 
 
 class Games(models.Model):
-    whitePlayer = models.ForeignKey(Profile, on_delete=models.SET_NULL, null=True, related_name='+')
+    whitePlayer = models.ForeignKey(Profile, on_delete=models.SET_NULL, null=True, related_name='games')
     blackPlayer = models.ForeignKey(Profile, on_delete=models.SET_NULL, null=True, related_name='+')
     winColor = models.CharField(verbose_name="End", max_length=10)
     dateOfGame = models.DateTimeField(verbose_name="Time of game", auto_now_add=True)
