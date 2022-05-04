@@ -30,7 +30,7 @@ class ProfileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Profile
-        fields = ('user', 'rate', 'url')
+        fields = ('user', 'rate', 'RD', 'url')
 
 
 class ProfileGameSerializer(serializers.ModelSerializer):

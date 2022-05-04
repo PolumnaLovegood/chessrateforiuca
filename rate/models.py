@@ -7,6 +7,7 @@ from django.dispatch import receiver
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     rate = models.PositiveSmallIntegerField("Rate", default=400)
+    RD = models.PositiveSmallIntegerField("Rate", default=400)
 
     @receiver(post_save, sender=User)
     def create_user_profile(sender, instance, created, **kwargs):
@@ -26,7 +27,7 @@ class Profile(models.Model):
 
 
 class Games(models.Model):
-    whitePlayer = models.ForeignKey(Profile, on_delete=models.SET_NULL, null=True, related_name='games')
+    whitePlayer = models.ForeignKey(Profile, on_delete=models.SET_NULL, null=True, related_name='+')
     blackPlayer = models.ForeignKey(Profile, on_delete=models.SET_NULL, null=True, related_name='+')
     winColor = models.CharField(verbose_name="End", max_length=10)
     dateOfGame = models.DateTimeField(verbose_name="Time of game", auto_now_add=True)

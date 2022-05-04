@@ -14,6 +14,8 @@ router.register(r'games', views.GamesViewSet)
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(router.urls)),
+    path('auth/', include('djoser.urls')),
+    path('auth/', include('djoser.urls.authtoken')),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path('profile/<int:pk>/', views.ProfileGameViewSet.as_view({'get': 'list'}), name='profiles_games')
 ]
